@@ -124,3 +124,82 @@ Go 언어는 숫자, 불리언, 문자열, 배열, 슬라이스, 구조체, 포�
 - 인터페이스 : 메서드 정의의 집합입니다(20장 ‘인터페이스’ 참조).
 - 맵 : key와 value을 갖는 데이터를 저장해둔 자료구조입니다. 키를 사용해 데이터를 찾는 데 특화된 자료구조입니다. 쉽게 전화번호부나 사전을 생각하시면 됩니다(22장 ‘자료구조’ 참조). 
 - channel : 멀티스레드 환경에 특화된 큐 형태 자료구조입니다
+
+## 변수 선언의 다른 형태
+
+```go
+var b = 3.1415 // b는 float64 타입으로 자동 지정됩니다.
+c := 365 // c는 int 타입으로 자동 지정됩니다.
+s := "hello world" // s는 string 타입으로 자동 지정됩니다. 
+```
+
+### 타입별 기본값
+
+변수를 선언할 때 초깃값을 생략하면 다음과 같은 기본값이 자동 대입됩니다.
+![image.png](./imgs/default_values.png)
+
+### 선언 대입문 :=
+
+선언 대입문이란 말 그대로 선언과 대입을 한꺼번에 하는 구문입니다. 선언 대입문을 사용하면 var 키워드와 타입을 생략해 변수를 선언할 수 있습니다.
+
+## 타입 변환
+프로그래밍 언어를 구분할 때 타입 검사를 하는가 안 하는가에 따라 강 타입 언어와 약 타입 언어로 나눕니다. Go 언어는 강 타입 언어 중에서도 가장 강하게 타입 검사를 하는 최강 타입 언어입니다.
+
+```go
+a := 3 // int
+var b float64 = 3.5 // float64
+
+var c int = b // Error - float64 변수를 int에 대입 불가
+d := a * b // Error - 다른 타입인 int 변수와 float64 연산 불가
+
+var e int64 = 7
+f := a * e // Error - a는 int 타입, e는 int64 타입으로 같은 정수값이지만
+ // 타입이 달라서 연산 불가
+```
+
+```go
+ch4/ex4.4/ex4.4.go
+
+package main
+
+import "fmt"
+
+func main() {
+ a := 3 // int
+ var b float64 = 3.5 // float64
+
+ var c int = int(b) // ① float64에서 int로 변환
+ d := float64(a * c) // int에서 float64로 변환
+
+ var e int64 = 7
+ f := int64(d) * e // float64에서 int64로 변환
+
+ var g int = int(b * 3) // ② float64에서 int로 변환
+ var h int = int(b) * 3 // ③ float64에서 int로 변환. g와 값이 다릅니다. 
+ fmt.Println(g, h, f)
+}
+10 9 63
+```
+
+- 실수 타입에서 정수 타입으로 타입 변환하면 소수점 이하 숫자가 없어진다
+
+- 큰 범위를 갖는 타입에서 작은 범위를 갖는 타입으로 변환하면 값이 달라질 수 있다
+
+```go
+ch4/ex4.5/ex4.5.go
+
+package main
+
+import "fmt"
+
+func main() {
+  var a int16 = 3456
+  var c int8 = int8(a) // ① int16 타입에서 int8 타입으로 변환
+
+  fmt.Println(a)
+  fmt.Println(c) // ② int8타입인 c값 출력
+}
+3456
+-128
+```
+![image.png](./imgs/type_conversion.png)
