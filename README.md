@@ -1,6 +1,6 @@
 # Go lang Study
 Go 언어를 학습하고 실습하기 위한 자료들을 포함하고 있습니다. 다양한 예제 코드, 프로젝트, 그리고 학습 자료들이 포함되어 있습니다.
-참고 자료: [wikidocs - Go 언어 입문](https://wikidocs.net/book/13312)
+참고 자료: [wikidocs - Go 언어 입문](https://wikidocs.net/book/13312), [예제로 배우는 Go 프로그래밍](http://golang.site/)
 
 # Go 언어 특징
 
